@@ -1,0 +1,5 @@
+pip install -r requirements.txt  -t ./
+rm -rf ../imageResize.zip
+zip -r ../imageResize.zip ./
+aws s3 cp ../imageResize.zip s3://buydo-lambdas/
+aws  lambda update-function-code --function-name imageResize --s3-bucket bucket-name --s3-key imageResize.zip     
