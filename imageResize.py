@@ -14,6 +14,7 @@ def lambda_handler(event, context):
     bucket = resource.Bucket('buydo-images')
 
     path = event['path']
+    
     # path = "/images/crop/200/46/04/28/460428d8b81f36a641f75d656dc4efc7.jpg"
     # path = "/images/resize/400/4a/45/87/4a45872e111aa429b3cf08a3b0205440.jpg"
     fname = os.path.basename(path)
@@ -79,6 +80,7 @@ def lambda_handler(event, context):
         os.remove("/tmp/" + fname)
         response['body'] = base64.b64encode(string).decode("utf-8")
     else:
+        print("path=data" + path)
         image_object = bucket.Object("data" + path)
         string = image_object.get()['Body'].read()
         response['body'] = base64.b64encode(string).decode("utf-8")
